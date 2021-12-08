@@ -1,10 +1,14 @@
+// INTERESTING
 // https://github.com/rust-lang/rust/issues/62358
 // I tried to use Option<i32>.contains(&<i32>)
 // but realized this was an inprogress issue since 2019
 
 // TODO
 // remove s != "" check and use more rust orientated error handling
-// Better style and more robust
+// better style and more robust
+
+// ANSWER
+// 1752
 
 use std::fs;
 
