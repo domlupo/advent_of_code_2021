@@ -3,13 +3,13 @@
 use std::fs;
 
 fn main() {
-    let contents = fs::read_to_string("day2.txt")
+    let file_contents = fs::read_to_string("day2.txt")
         .expect("Something went wrong reading the file");
 
     let mut horizontal = 0;
     let mut depth = 0;
 
-    for submarine_vector in contents.split("\n") {
+    for submarine_vector in file_contents.split("\n") {
         if submarine_vector == "" {
             break;
         }
