@@ -20,8 +20,9 @@ fn main() {
         } else if line != "" {
             unparsed_bingo_board.set_next_line(line.to_string());
 
-            if unparsed_bingo_board.index == BINGO_BOARD_ROWS as usize{
+            if unparsed_bingo_board.ready_to_copy {
                 unparsed_bingo_boards.push(unparsed_bingo_board.clone());
+                unparsed_bingo_board.ready_to_copy = false;
             }
         }
     }
@@ -32,6 +33,7 @@ fn main() {
 #[derive(Clone)]
 struct UnparsedBingoBoard {
     lines: [String; BINGO_BOARD_ROWS as usize],
+    ready_to_copy: bool,
     index: usize,
 }
 
@@ -39,6 +41,7 @@ impl Default for UnparsedBingoBoard {
     fn default() -> UnparsedBingoBoard {
         UnparsedBingoBoard {
             lines: Default::default(),
+            ready_to_copy: false,
             index: 0,
         }
     }
@@ -50,6 +53,7 @@ impl UnparsedBingoBoard {
 
         if self.index + 1  == self.lines.len() {
             self.index = 0;
+            self.ready_to_copy = true;
         } else {
             self.index += 1;
         }
