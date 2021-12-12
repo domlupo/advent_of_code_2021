@@ -1,39 +1,33 @@
-// INTERESTING
-
-// TODO
-// remove s != "" check and use more rust orientated error handling
-// better style and more robust
-
-// ANSWER
-// 3309596
+// Answer is 3309596
 
 use std::fs;
 
 const RADIX: u32 = 10;
 
 fn main() {
-    let contents = fs::read_to_string("day3.txt")
+    let file_contents = fs::read_to_string("day3.txt")
         .expect("Something went wrong reading the file");
-    let contents_split = contents.split("\n");
 
     let mut zero_counts: [i32; 12] = [0; 12];
     let mut one_counts: [i32; 12] = [0; 12];
 
-    for num_chars in contents_split {
-        if num_chars != "" {
-            let mut index = 0;
+    for num_chars in file_contents.split("\n") {
+        if num_chars == "" {
+            break;
+        }
 
-            for num_char in num_chars.chars() {
-                let num = num_char.to_digit(RADIX).unwrap();
+        let mut index = 0;
 
-                if num == 0 {
-                    zero_counts[index] += 1;
-                } else if num == 1 {
-                    one_counts[index] += 1;
-                }
-
-                index += 1;
+        for num_char in num_chars.chars() {
+            let num = num_char.to_digit(RADIX).unwrap();
+                
+            if num == 0 {
+                zero_counts[index] += 1;
+            } else if num == 1 {
+                one_counts[index] += 1;
             }
+
+            index += 1;
         }
     }
 
@@ -52,8 +46,8 @@ fn main() {
     let mut epsilon = 0;
 
     for j in 0..12 {
-        gamma += base.pow(j) * binary_gamma[11 - j as usize];
-        epsilon += base.pow(j) * binary_epsilon[11 - j as usize];
+        gamma += base.pow(11 - j) * binary_gamma[j as usize];
+        epsilon += base.pow(11 - j) * binary_epsilon[j as usize];
     }
 
     println!("{}", gamma * epsilon);
