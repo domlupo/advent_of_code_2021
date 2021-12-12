@@ -3,7 +3,7 @@
 use std::fs;
 
 fn main() {
-    let contents = fs::read_to_string("day1.txt")
+    let file_contents = fs::read_to_string("day1.txt")
         .expect("Something went wrong reading the file");
    
     let mut prior_num1: Option<i32> = None;
@@ -12,7 +12,7 @@ fn main() {
 
     let mut window_increased = 0;
 
-    for line in contents.split("\n") {
+    for line in file_contents.split("\n") {
         if line == "" {
             break;
         }
