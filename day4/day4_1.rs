@@ -14,7 +14,7 @@ fn main() {
     let mut unparsed_bingo_boards: Vec<UnparsedBingoBoard> = Vec::new();
     let mut unparsed_bingo_board = UnparsedBingoBoard { ..Default::default() };
 
-    for line in file_contents.split("\n") {
+    for line in file_contents.lines() {
         if unparsed_called_nums.is_none() {
             unparsed_called_nums = Some(line.to_string());
         } else if line != "" {
@@ -27,7 +27,9 @@ fn main() {
         }
     }
 
-    println!("{}", unparsed_called_nums.unwrap());
+    for unparsed_bingo_board in unparsed_bingo_boards {
+        unparsed_bingo_board.get_parsed();
+    }
 }
 
 #[derive(Clone)]
@@ -58,10 +60,33 @@ impl UnparsedBingoBoard {
             self.index += 1;
         }
     }
+
+    fn get_parsed(self) -> [u8; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize] {
+        let mut parsed_bingo_board:
+            [u8; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize] = Default::default();
+        let mut i = 0;
+
+        for line in self.lines {
+            for num in line.split(" ") {
+
+                // .split does not support multiple delimiters, so handle " 2" -> "", "2"
+                if num != "" {
+                    parsed_bingo_board[i] = num.as_bytes()[0];
+                    i += 1;
+                }
+            }
+        }
+
+        return parsed_bingo_board;
+    }
+}
+
+struct ParsedBingoBoard {
+    board: [u8; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize],
 }
 
 struct BingoSquare {
-    val: i64,
+    val: u8,
     marked: bool,
 }
 
