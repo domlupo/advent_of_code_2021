@@ -9,7 +9,7 @@ fn main() {
     let mut horizontal = 0;
     let mut depth = 0;
 
-    for submarine_vector in file_contents.split("\n") {
+    for submarine_vector in file_contents.lines() {
         if submarine_vector == "" {
             break;
         }

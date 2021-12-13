@@ -11,7 +11,7 @@ fn main() {
     let mut zero_counts: [i32; 12] = [0; 12];
     let mut one_counts: [i32; 12] = [0; 12];
 
-    for num_chars in file_contents.split("\n") {
+    for num_chars in file_contents.lines() {
         if num_chars == "" {
             break;
         }

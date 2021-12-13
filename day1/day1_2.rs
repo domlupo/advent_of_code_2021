@@ -12,7 +12,7 @@ fn main() {
 
     let mut window_increased = 0;
 
-    for line in file_contents.split("\n") {
+    for line in file_contents.lines() {
         if line == "" {
             break;
         }

@@ -9,7 +9,7 @@ fn main() {
     let mut prior_num: Option<i32> = None;
     let mut num_increased  = 0;
 
-    for line in file_contents.split("\n") {
+    for line in file_contents.lines() {
         if line == "" {
             break;
         }
