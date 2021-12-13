@@ -43,17 +43,17 @@ fn main() {
         .map(|mut bingo_board| bingo_board.get_result(&called_nums))
         .collect();
 
-    let mut least_called_nums: Option<u64> = None;
+    let mut least_called_nums_with_bingo: Option<u64> = None;
     let mut winning_board_score: Option<u64> = None;
 
     for bingo_board_result in bingo_board_results {
         if bingo_board_result.bingo {
-            if least_called_nums.is_none() {
-                least_called_nums = Some(bingo_board_result.count_called_nums);
+            if least_called_nums_with_bingo.is_none() {
+                least_called_nums_with_bingo = Some(bingo_board_result.count_called_nums);
                 winning_board_score = Some(bingo_board_result.sum_uncalled_nums *
                                            bingo_board_result.last_num_called);
-            } else if bingo_board_result.count_called_nums < least_called_nums.unwrap() {
-                least_called_nums = Some(bingo_board_result.count_called_nums);
+            } else if bingo_board_result.count_called_nums < least_called_nums_with_bingo.unwrap() {
+                least_called_nums_with_bingo = Some(bingo_board_result.count_called_nums);
                 winning_board_score = Some(bingo_board_result.sum_uncalled_nums *
                                            bingo_board_result.last_num_called);
             }
