@@ -27,8 +27,10 @@ fn main() {
         }
     }
 
+    let mut bingo_boards: Vec<BingoBoard> = Vec::new();
+
     for unparsed_bingo_board in unparsed_bingo_boards {
-        unparsed_bingo_board.get_parsed();
+        bingo_boards.push(BingoBoard::build(unparsed_bingo_board.get_parsed()));
     }
 }
 
@@ -81,17 +83,38 @@ impl UnparsedBingoBoard {
     }
 }
 
-struct ParsedBingoBoard {
-    board: [u8; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize],
-}
-
 struct BingoSquare {
-    val: u8,
+    val: Option<u8>,
     marked: bool,
 }
 
+impl Default for BingoSquare {
+    fn default() -> BingoSquare {
+        BingoSquare {
+            val: None,
+            marked: false,
+        }
+    }
+}
+
 struct BingoBoard {
-    board: [BingoSquare; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize ],
+    squares: [BingoSquare; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize],
+}
+
+impl BingoBoard {
+    fn build (bingo_vals: [u8; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize]) -> BingoBoard {
+        let mut squares:
+            [BingoSquare; (BINGO_BOARD_ROWS * BINGO_BOARD_COLS) as usize] = Default::default();
+        let mut i = 0;
+
+        for val in bingo_vals {
+            squares[i].val = Some(val);
+            i += 1;
+        }
+
+        return BingoBoard { squares: squares }
+
+    }
 }
 
 struct BingoBoardResult {
