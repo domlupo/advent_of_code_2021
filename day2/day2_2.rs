@@ -2,8 +2,10 @@
 
 use std::fs;
 
+const FILE_NAME: &str  = "day2.txt";
+
 fn main() {
-    let file_contents = fs::read_to_string("day2.txt")
+    let file_contents = fs::read_to_string(FILE_NAME)
         .expect("Something went wrong reading the file");
 
     let mut horizontal = 0;

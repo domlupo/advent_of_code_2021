@@ -2,10 +2,11 @@
 
 use std::fs;
 
+const FILE_NAME: &str  = "day3.txt";
 const RADIX: u32 = 10;
 
 fn main() {
-    let file_contents = fs::read_to_string("day3.txt")
+    let file_contents = fs::read_to_string(FILE_NAME)
         .expect("Something went wrong reading the file");
 
     let mut zero_counts: [i32; 12] = [0; 12];
