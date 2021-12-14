@@ -16,14 +16,9 @@ fn main() {
         parsed_lines.push(parse_line(line));
     }
 
-    let straight_lines: Vec<Line> = parsed_lines
-        .into_iter()
-        .filter(|parsed_line| parsed_line.is_straight())
-        .collect();
-
     let mut point_vents: HashMap<Point, u64> = HashMap::new();
 
-    for line in straight_lines {
+    for line in parsed_lines {
         for point in line.get_all_points() {
             if point_vents.contains_key(&point) {
                 point_vents.insert(point.clone(), point_vents.get(&point).unwrap() + 1 as u64);
@@ -84,10 +79,6 @@ struct Line {
 }
 
 impl Line {
-    fn is_straight(&self) -> bool {
-        return self.start.x == self.end.x || self.start.y == self.end.y
-    }
-
     fn max_x(&self) -> u64 {
         return cmp::max(self.start.x, self.end.x);
     }
