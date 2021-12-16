@@ -6,17 +6,15 @@ const FILE_NAME: &str  = "day3.txt";
 const RADIX: u32 = 10;
 
 fn main() {
-    let file_contents = fs::read_to_string(FILE_NAME)
+    let mut file_contents = fs::read_to_string(FILE_NAME)
         .expect("Something went wrong reading the file");
+
+    file_contents.pop();
 
     let mut zero_counts: [i32; 12] = [0; 12];
     let mut one_counts: [i32; 12] = [0; 12];
 
     for num_chars in file_contents.lines() {
-        if num_chars == "" {
-            break;
-        }
-
         let mut index = 0;
 
         for num_char in num_chars.chars() {

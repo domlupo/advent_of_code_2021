@@ -5,8 +5,10 @@ use std::fs;
 const FILE_NAME: &str  = "day1.txt";
 
 fn main() {
-    let file_contents = fs::read_to_string(FILE_NAME)
+    let mut file_contents = fs::read_to_string(FILE_NAME)
         .expect("Something went wrong reading the file");
+
+    file_contents.pop();
    
     let mut prior_num1: Option<i32> = None;
     let mut prior_num2: Option<i32> = None;
@@ -15,10 +17,6 @@ fn main() {
     let mut window_increased = 0;
 
     for line in file_contents.lines() {
-        if line == "" {
-            break;
-        }
-
         if prior_num3.is_some() {
             let current_num = line.parse::<i32>().unwrap();
             let current_window = current_num + prior_num1.unwrap() + prior_num2.unwrap();
@@ -27,7 +25,6 @@ fn main() {
             if current_window > prior_window {
                 window_increased += 1;
             }
-
         }
 
         if prior_num1.is_none() {
